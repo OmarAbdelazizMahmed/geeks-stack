@@ -3,7 +3,7 @@
 import { User } from "../types";
 
 // this is the data access object
-export interface UseDao {
+export interface UserDao {
     createUser(user: User): void;
     getUserByEmail(email: string): User | undefined;
     getUserByUsername(username: string): User | undefined;

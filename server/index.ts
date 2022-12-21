@@ -1,12 +1,10 @@
 import express, { RequestHandler } from 'express';
-
+import { db } from './datastore';
 const app = express();
 
 // parse application/json
 app.use(express.json());
 
-
-const posts: any[] = [];
 
 const requestLoggerMiddleware: RequestHandler = (req, res, next) => {
     console.log(`${req.method} ${req.path}`);
@@ -22,16 +20,15 @@ const dateLoggerMiddleware: RequestHandler = (req, res, next) => {
 
 app.use(dateLoggerMiddleware);
 app.get('/posts', (req, res) => {
-    res.send({ posts });
+    res.send({ posts: db.listPosts() });
 });
 
 
 
 app.post('/posts', (req, res) => {
     const post = req.body;  
-    posts.push(post);
+    db.createPost(post);
     res.send('post added');
-
 });
 
 app.listen(3000, () => {
