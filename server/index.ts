@@ -14,7 +14,13 @@ const requestLoggerMiddleware: RequestHandler = (req, res, next) => {
 };
 
 app.use(requestLoggerMiddleware);
+// create date logger middleware
+const dateLoggerMiddleware: RequestHandler = (req, res, next) => {
+    console.log(new Date());
+    next();
+};
 
+app.use(dateLoggerMiddleware);
 app.get('/posts', (req, res) => {
     res.send({ posts });
 });
