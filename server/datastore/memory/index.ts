@@ -87,12 +87,8 @@ export class InMemoryDataStore implements DataStore {
         this.likes.push(like);
     }
 
-    // Path: server/datastore/memory/index.ts
-    // Compare this snippet from server/datastore/index.ts:
-    // import { CommentDao } from "./CommentDoa";
-    // import { LikeDao } from "./LikeDao";
-    // import { PostDao } from "./PostDoa";
-    // import { UserDao } from "./UserDao";
-    //
-    // export interface DataStore  extends  UserDao, PostDao, CommentDao, LikeDao{}
+    nextPostId(): string {
+        return (this.posts.length + 1).toString();
+    }
+    
 }

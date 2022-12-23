@@ -1,8 +1,7 @@
 import express, { RequestHandler } from 'express';
-import { db } from './datastore';
+import { createPostHandler, listPostHandler } from './handlers/postHandler';
 const app = express();
 
-// parse application/json
 app.use(express.json());
 
 
@@ -19,17 +18,11 @@ const dateLoggerMiddleware: RequestHandler = (req, res, next) => {
 };
 
 app.use(dateLoggerMiddleware);
-app.get('/posts', (req, res) => {
-    res.send({ posts: db.listPosts() });
-});
+app.get('/posts', listPostHandler);
 
 
 
-app.post('/posts', (req, res) => {
-    const post = req.body;  
-    db.createPost(post);
-    res.send('post added');
-});
+app.post('/posts', createPostHandler);
 
 app.listen(3000, () => {
     console.log('Server running on port 3000');
