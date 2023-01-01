@@ -1,4 +1,4 @@
-import express, { RequestHandler } from 'express';
+import express, { ErrorRequestHandler, RequestHandler } from 'express';
 import { createPostHandler, listPostHandler } from './handlers/postHandler';
 const app = express();
 
@@ -18,11 +18,16 @@ const dateLoggerMiddleware: RequestHandler = (req, res, next) => {
 };
 
 app.use(dateLoggerMiddleware);
+
 app.get('/posts', listPostHandler);
-
-
-
 app.post('/posts', createPostHandler);
+
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+    console.error(err);
+    return res.status(500).send({ error: "Something went wrong" });
+};
+
+app.use(errorHandler);
 
 app.listen(3000, () => {
     console.log('Server running on port 3000');

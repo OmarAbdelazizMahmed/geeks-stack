@@ -1,0 +1,13 @@
+{
+    "tailingComma": "es5",
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "arrowParens": "void",
+    "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true,
+    "quoteProps": "as-needed",
+    "printWidth": 80
+}
