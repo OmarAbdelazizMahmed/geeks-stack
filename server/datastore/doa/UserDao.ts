@@ -1,6 +1,6 @@
 // reading from the database and returning the data to the memory
 
-import { User } from "../types";
+import { User } from "../../types";
 
 // this is the data access object
 export interface UserDao {

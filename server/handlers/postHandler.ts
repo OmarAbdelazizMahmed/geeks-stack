@@ -19,6 +19,10 @@ export const createPostHandler: ExpressHandler<
   CreatePostRequest,
   CreatePostResponse
 > = (req, res) => {
+    // TODO: validate request body
+    // TODO: get userId from session
+    // TODO: validate url is new otherwise add +1 to the existing post
+    
   if (!req.body.title || !req.body.url || !req.body.userId) {
     return res.status(400).send({ error: "title, url, userId are required" });
   }
