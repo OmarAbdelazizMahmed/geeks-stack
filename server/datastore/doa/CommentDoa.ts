@@ -1,7 +1,7 @@
 import { Comment } from "../../types";
 
 export interface CommentDao {
-    createComment(comment: Comment): void;
-    listComments(postId: string): Comment[];
-    deleteComment(id: string): void;
+    createComment(comment: Comment): Promise<void>;
+    listComments(postId: string): Promise<Comment[]>;
+    deleteComment(id: string): Promise<void>;
 }

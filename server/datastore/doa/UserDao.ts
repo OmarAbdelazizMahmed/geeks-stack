@@ -4,7 +4,7 @@ import { User } from "../../types";
 
 // this is the data access object
 export interface UserDao {
-    createUser(user: User): void;
-    getUserByEmail(email: string): User | undefined;
-    getUserByUsername(username: string): User | undefined;
+    createUser(user: User): Promise<void>;
+    getUserByEmail(email: string): Promise<User | undefined>;
+    getUserByUsername(username: string): Promise<User | undefined>;
 }

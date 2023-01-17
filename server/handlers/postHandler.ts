@@ -1,24 +1,23 @@
+import { RequestHandler } from "express";
 import {
   CreatePostRequest,
   CreatePostResponse,
-  ListPostRequest,
-  ListPostResponse,
+
 } from "../api";
 import { db } from "../datastore";
 import { ExpressHandler, Post } from "../types";
 import crypto from "crypto";
 
-export const listPostHandler: ExpressHandler<
-  ListPostRequest,
-  ListPostResponse
-> = (req, res) => {
-  res.send({ posts: db.listPosts() });
+export const listPostHandler: RequestHandler= async (req, res) => {
+  let posts = db.listPosts();
+
+  res.send({ posts });
 };
 
 export const createPostHandler: ExpressHandler<
   CreatePostRequest,
   CreatePostResponse
-> = (req, res) => {
+> = async (req, res) => {
     // TODO: validate request body
     // TODO: get userId from session
     // TODO: validate url is new otherwise add +1 to the existing post
@@ -35,6 +34,6 @@ export const createPostHandler: ExpressHandler<
     postedAt: new Date().toISOString(),
   };
 
-  db.createPost(post);
+  await db.createPost(post);
   res.send({ post });
 };

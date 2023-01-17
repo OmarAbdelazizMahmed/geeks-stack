@@ -13,16 +13,17 @@ export class InMemoryDataStore implements DataStore {
     //     createUser(user: User): void;
     //     getUserById(id: string): User | undefined;
     // }
-    createUser(user: User): void {
+    createUser(user: User): Promise<void> {
         this.users.push(user);
+        return Promise.resolve();
     }
 
-    getUserByEmail(email: string): User | undefined {
-        return this.users.find((user) => user.email === email);
+    getUserByEmail(email: string): Promise<User | undefined> {
+        return Promise.resolve(this.users.find((user) => user.email === email));
     }
 
-    getUserByUsername(username: string): User | undefined {
-        return this.users.find((user) => user.username === username);
+    getUserByUsername(username: string): Promise<User | undefined> {
+        return Promise.resolve(this.users.find((user) => user.username === username));
     }
 
 
@@ -34,19 +35,20 @@ export class InMemoryDataStore implements DataStore {
     //     getPostById(id: string): Post | undefined;
     //     deletePostById(id: string): void;
     // }
-    listPosts(): Post[] {
-        return this.posts;
+    listPosts(): Promise<Post[]> {
+        return Promise.resolve(this.posts);
     }
 
-    createPost(post: Post): void {
+    createPost(post: Post): Promise<void> {
         this.posts.push(post);
+        return Promise.resolve();
     }
 
-    getPostById(id: string): Post | undefined {
-        return this.posts.find((post) => post.id === id);
+    getPostById(id: string): Promise<Post | undefined> {
+        return Promise.resolve(this.posts.find((post) => post.id === id));
     }
 
-    deletePostById(id: string): void {
+    deletePostById(id: string): Promise<void> {
         const postIndex = this.posts.findIndex((post) => post.id === id);
         if (postIndex !== -1) {
             this.posts.splice(postIndex, 1);
@@ -54,6 +56,7 @@ export class InMemoryDataStore implements DataStore {
 
         this.comments = this.comments.filter((comment) => comment.postId !== id);
         this.likes = this.likes.filter((like) => like.postId !== id);
+        return Promise.resolve();
     }
 
     // Path: server/datastore/memory/CommentDoa.ts
@@ -63,18 +66,20 @@ export class InMemoryDataStore implements DataStore {
     //     listComments(postId: string): Comment[];
     //     deleteComment(id: string): void;
     // }
-    createComment(comment: Comment): void {
+    createComment(comment: Comment): Promise<void> {
         this.comments.push(comment);
+        return Promise.resolve();
     }
 
-    listComments(postId: string): Comment[] {
-        return this.comments.filter((comment) => comment.postId === postId);
+    listComments(postId: string): Promise<Comment[]> {
+        return Promise.resolve(this.comments.filter((comment) => comment.postId === postId));
     }
-    deleteComment(id: string): void {
+    deleteComment(id: string): Promise<void> {
         const commentIndex = this.comments.findIndex((comment) => comment.id === id);
         if (commentIndex !== -1) {
             this.comments.splice(commentIndex, 1);
         }
+        return Promise.resolve();
     }
 
     // Path: server/datastore/memory/LikeDao.ts
@@ -83,8 +88,9 @@ export class InMemoryDataStore implements DataStore {
     //     createLike(like: Like): void;
     // }
 
-    createLike(like: Like): void {
+    createLike(like: Like): Promise<void> {
         this.likes.push(like);
+        return Promise.resolve();
     }
 
     nextPostId(): string {

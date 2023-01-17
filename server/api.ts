@@ -1,4 +1,4 @@
-import { Like, Post } from "./types";
+import { Comment, Like, Post } from "./types";
 
 
 export type CreatePostRequest = Pick<Post, "title" | "url" | "userId">;
