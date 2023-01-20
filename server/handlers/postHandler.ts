@@ -1,15 +1,15 @@
-import { RequestHandler } from "express";
 import {
   CreatePostRequest,
   CreatePostResponse,
-
+  ListPostRequest,
+  ListPostResponse,
 } from "../api";
 import { db } from "../datastore";
 import { ExpressHandler, Post } from "../types";
 import crypto from "crypto";
 
-export const listPostHandler: RequestHandler= async (req, res) => {
-  let posts = db.listPosts();
+export const listPostHandler: ExpressHandler<ListPostRequest, ListPostResponse> = async (req, res) => {
+  let posts = await db.listPosts();
 
   res.send({ posts });
 };

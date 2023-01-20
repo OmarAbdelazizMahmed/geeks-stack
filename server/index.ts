@@ -1,5 +1,7 @@
 import express, { ErrorRequestHandler, RequestHandler } from 'express';
 import { createPostHandler, listPostHandler } from './handlers/postHandler';
+import asyncHandler from "express-async-handler"
+
 const app = express();
 
 app.use(express.json());
@@ -11,16 +13,9 @@ const requestLoggerMiddleware: RequestHandler = (req, res, next) => {
 };
 
 app.use(requestLoggerMiddleware);
-// create date logger middleware
-const dateLoggerMiddleware: RequestHandler = (req, res, next) => {
-    console.log(new Date());
-    next();
-};
 
-app.use(dateLoggerMiddleware);
-
-app.get('/posts', listPostHandler);
-app.post('/posts', createPostHandler);
+app.get('/posts', asyncHandler(listPostHandler));
+app.post('/posts', asyncHandler(createPostHandler));
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     console.error(err);
